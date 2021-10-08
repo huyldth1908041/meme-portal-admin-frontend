@@ -1,8 +1,8 @@
 import { AppFooter, AppNavbar } from '../containers';
 import { privateRoute } from '../routes';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { useProfileState } from '../states/profile';
 import Sidebar from '../containers/Sidebar';
+import useAuthentication from '../hooks/useAuthentication';
 
 
 function PrivateRoute({ component: Component, authed, requiredLogin, ...rest }) {
@@ -17,7 +17,7 @@ function PrivateRoute({ component: Component, authed, requiredLogin, ...rest }) 
 }
 
 const PrivateLayout = () => {
-  const { isLoggedIn } = useProfileState();
+  const { isLoggedIn } = useAuthentication();
   return (
     <div className='container-scroller'>
       <Sidebar />

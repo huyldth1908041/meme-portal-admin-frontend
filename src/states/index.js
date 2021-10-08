@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { profileReducer } from './profile';
+import ThemeReducer from "./theme"
 
 const rootReducer = {
-  profile: profileReducer,
+  isDarkMode: ThemeReducer,
   //add more reducer later
 };
 const store = configureStore({
