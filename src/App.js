@@ -4,6 +4,7 @@ import { PrivateLayout } from './layouts';
 import { Provider } from 'react-redux';
 import store from './states';
 import { LoginPage } from './pages/LoginPage';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <PrivateLayout />
           </Switch>
         </Router>
+        <Toaster/>
       </Provider>
     </>
   );
