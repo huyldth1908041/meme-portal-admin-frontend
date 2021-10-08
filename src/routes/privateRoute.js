@@ -1,19 +1,14 @@
-import { Explore } from '../pages/Explore';
-import { CreatePost } from '../pages/CreatePost';
+import { Dashboard } from '../pages/Dashboard';
 
 const privateRoute = {
   home: {
     path: '/',
-    component: Explore,
+    component: Dashboard,
+    requiredLogin: true,
   },
-  explore: {
-    path: '/explore',
-    component: Explore,
-  },
-  create: {
-    path: '/create/:type',
-    url: (type) => `/create/${type}`,
-    component: CreatePost,
+  dashboard: {
+    path: '/dashboard',
+    component: Dashboard,
     requiredLogin: true,
   },
 };
