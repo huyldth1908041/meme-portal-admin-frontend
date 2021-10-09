@@ -1,16 +1,21 @@
 import { useHistory } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import useAuthentication from '../../hooks/useAuthentication';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { privateRoute } from '../../routes';
 
 const LoginPage = () => {
   //demo purpose only
   const history = useHistory();
-  const { login } = useAuthentication();
+  const { login, isLoggedIn } = useAuthentication();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (isLoggedIn) history.push(privateRoute.home.path);
+  }, [isLoggedIn, history]);
 
   const handleLogin = async () => {
     if (!username || !password) {
@@ -25,7 +30,7 @@ const LoginPage = () => {
       setLoading(true);
       await login(username, password);
       history.push('/dashboard');
-      toast.success("Login success")
+      toast.success('Login success');
     } catch (err) {
       const msg = err.message || 'wrong username or password';
       toast.error('Login failed '.concat(msg));
