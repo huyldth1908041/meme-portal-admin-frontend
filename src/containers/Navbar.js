@@ -186,7 +186,7 @@ const Navbar = () => {
             <Dropdown.Toggle as='a' className='nav-link cursor-pointer no-caret'>
               <div className='navbar-profile'>
                 <img className='img-xs rounded-circle' src='/assets/images/face1.jpg' alt='profile' />
-                <p className='mb-0 d-none d-sm-block navbar-profile-name'><span>{user && user.username}</span></p>
+                <p className='mb-0 d-none d-sm-block navbar-profile-name'><span>{user && user.fullName}</span></p>
                 <i className='mdi mdi-menu-down d-none d-sm-block'></i>
               </div>
             </Dropdown.Toggle>

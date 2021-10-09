@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Collapse, Dropdown } from 'react-bootstrap';
 import { privateRoute } from '../routes';
+import { getLocalStorageObject } from '../utils';
+import { PROFILE_STORAGE_KEY } from '../constants';
 
 
 class Sidebar extends Component {
@@ -72,7 +74,8 @@ class Sidebar extends Component {
                   <span className='count bg-success' />
                 </div>
                 <div className='profile-name'>
-                  <h5 className='mb-0 font-weight-normal'><>Henry Klein</>
+                  <h5 className='mb-0 font-weight-normal'>
+                    <span>{getLocalStorageObject(PROFILE_STORAGE_KEY) && getLocalStorageObject(PROFILE_STORAGE_KEY).fullName}</span>
                   </h5>
                   <span><span>Gold Member</span></span>
                 </div>
@@ -156,10 +159,10 @@ class Sidebar extends Component {
             <div className={this.state.formElementsMenuOpen ? 'nav-link menu-expanded' : 'nav-link'}
                  onClick={() => this.toggleMenuState('formElementsMenuOpen')} data-toggle='collapse'>
               <span className='menu-icon'>
-                <i className='mdi mdi-playlist-play'/>
+                <i className='mdi mdi-playlist-play' />
               </span>
               <span className='menu-title'><span>Form Elements</span></span>
-              <i className='menu-arrow'/>
+              <i className='menu-arrow' />
             </div>
             <Collapse in={this.state.formElementsMenuOpen}>
               <div>
