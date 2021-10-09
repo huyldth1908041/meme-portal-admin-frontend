@@ -7,7 +7,7 @@ import { PROFILE_STORAGE_KEY } from '../constants';
 
 
 class Sidebar extends Component {
-
+  user = getLocalStorageObject(PROFILE_STORAGE_KEY);
   state = {};
 
   toggleMenuState(menuState) {
@@ -70,12 +70,14 @@ class Sidebar extends Component {
             <div className='profile-desc'>
               <div className='profile-pic'>
                 <div className='count-indicator'>
-                  <img className='img-xs rounded-circle ' src='/assets/images/face1.jpg' alt='profile' />
+                  <img className='img-xs rounded-circle '
+                       src={this.user && (this.user.avatar || '/assets/images/default-avatar.jpg')}
+                       alt='profile' />
                   <span className='count bg-success' />
                 </div>
                 <div className='profile-name'>
                   <h5 className='mb-0 font-weight-normal'>
-                    <span>{getLocalStorageObject(PROFILE_STORAGE_KEY) && getLocalStorageObject(PROFILE_STORAGE_KEY).fullName}</span>
+                    <span>{this.user && this.user.fullName}</span>
                   </h5>
                   <span><span>Gold Member</span></span>
                 </div>

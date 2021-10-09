@@ -185,7 +185,9 @@ const Navbar = () => {
           <Dropdown alignRight as='li' className='nav-item'>
             <Dropdown.Toggle as='a' className='nav-link cursor-pointer no-caret'>
               <div className='navbar-profile'>
-                <img className='img-xs rounded-circle' src='/assets/images/face1.jpg' alt='profile' />
+                <img className='img-xs rounded-circle'
+                     src={user && (user.avatar || '/assets/images/default-avatar.jpg')}
+                     alt='profile' />
                 <p className='mb-0 d-none d-sm-block navbar-profile-name'><span>{user && user.fullName}</span></p>
                 <i className='mdi mdi-menu-down d-none d-sm-block'></i>
               </div>
@@ -207,7 +209,7 @@ const Navbar = () => {
               <Dropdown.Divider />
               <Dropdown.Item href='!#' onClick={evt => {
                 evt.preventDefault();
-                logout()
+                logout();
               }} className='preview-item'>
                 <div className='preview-thumbnail'>
                   <div className='preview-icon bg-dark rounded-circle'>
