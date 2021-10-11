@@ -138,21 +138,25 @@ class Sidebar extends Component {
               <span className='menu-icon'>
                 <i className='mdi mdi-laptop' />
               </span>
-              <span className='menu-title'><span>Basic UI Elements</span></span>
+              <span className='menu-title'><span>Post Management</span></span>
               <i className='menu-arrow' />
             </div>
             <Collapse in={this.state.basicUiMenuOpen}>
               <div>
                 <ul className='nav flex-column sub-menu'>
+                  <li className='nav-item'>
+                    <Link
+                    className={this.isPathActive(privateRoute.verifyPost.path) ? 'nav-link active' : 'nav-link'}
+                    to={privateRoute.verifyPost.path}>
+                      <span>Verify posts</span>
+                    </Link>
+                  </li>
                   <li className='nav-item'><Link
-                    className={this.isPathActive('/basic-ui/buttons') ? 'nav-link active' : 'nav-link'}
-                    to='/basic-ui/buttons'><span>Buttons</span></Link></li>
+                    className={this.isPathActive(privateRoute.createPost.path) ? 'nav-link active' : 'nav-link'}
+                    to={privateRoute.createPost.path}><span>Create Post</span></Link></li>
                   <li className='nav-item'><Link
-                    className={this.isPathActive('/basic-ui/dropdowns') ? 'nav-link active' : 'nav-link'}
-                    to='/basic-ui/dropdowns'><span>Dropdowns</span></Link></li>
-                  <li className='nav-item'><Link
-                    className={this.isPathActive('/basic-ui/typography') ? 'nav-link active' : 'nav-link'}
-                    to='/basic-ui/typography'><span>Typography</span></Link></li>
+                    className={this.isPathActive(privateRoute.listPosts.path) ? 'nav-link active' : 'nav-link'}
+                    to={privateRoute.listPosts.path}><span>All Post</span></Link></li>
                 </ul>
               </div>
             </Collapse>
