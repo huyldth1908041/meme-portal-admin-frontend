@@ -34,7 +34,7 @@ const FilterWrapper = styled.div`
 `;
 const ListPost = () => {
   const [dataSearch, setDataSearch] = useState({ page: 1, limit: 10, status: 1 });
-  const { data = {}, isLoading } = useQuery(['memeServices.searchMemes', dataSearch],
+  const { data = {}, isLoading, error } = useQuery(['memeServices.searchMemes', dataSearch],
     ({ queryKey }) => memeServices.searchMemes(queryKey[1]),
     {
       keepPreviousData: true,
@@ -88,7 +88,7 @@ const ListPost = () => {
         {
           isLoading ? (
             <Skeleton />
-          ) : (
+          ) : error ? (<p>Some error has occurred : {error.message}</p>) : (
             <CustomTable
               data={listData}
               columns={postColumns}
@@ -98,7 +98,7 @@ const ListPost = () => {
           )
         }
       </ContentWrapper>
-      {!isLoading && (
+      {(!isLoading && !error) && (
         <AppPagination defaultCurrent={1} total={data.data.totalElements} onPageChangeHandler={onPageChangeHandle}
                        limit={dataSearch.limit} />
       )}

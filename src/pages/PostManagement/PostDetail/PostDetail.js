@@ -65,7 +65,7 @@ const StyledTabs = styled(Tabs)`
 const PostDetail = () => {
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
-  const { data = {}, isLoading, refetch } = useQuery(['memeServices.postDetail', id],
+  const { data = {}, isLoading, refetch, error } = useQuery(['memeServices.postDetail', id],
     ({ queryKey }) => memeServices.postDetail(queryKey[1]));
   const { data: item = {} } = data;
 
@@ -118,7 +118,7 @@ const PostDetail = () => {
     <PageContainer>
       <PageTitle>Post Detail</PageTitle>
       {
-        isLoading ? (<Skeleton />) : (
+        isLoading ? (<Skeleton />) : error ? (<p>error: {error.message}</p>) : (
           <>
             <Row gutter={24}>
               <Col span={12}>
