@@ -122,7 +122,7 @@ const PostDetail = () => {
           <>
             <Row gutter={24}>
               <Col span={12}>
-                <ContentWrapper>
+                <ContentWrapper style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   <StyledImage src={item.image} preview={false} />
                 </ContentWrapper>
               </Col>
