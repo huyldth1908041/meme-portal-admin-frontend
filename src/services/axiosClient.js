@@ -1,7 +1,7 @@
 import axios from 'axios';
 import queryString from 'query-string';
 import { API_URL, PROFILE_STORAGE_KEY } from '../constants';
-import { getLocalStorageObject } from '../utils';
+import { addItemToLocalStorage, getLocalStorageObject } from '../utils';
 
 
 const axiosClient = axios.create({
@@ -20,6 +20,42 @@ axiosClient.interceptors.request.use((config) => {
   }
   return config;
 });
+
+axiosClient.interceptors.response.use(
+  (res) => {
+    return res;
+  },
+  async (err) => {
+    const originalConfig = err.config;
+
+    if (originalConfig.url !== "/login" && err.response) {
+      // Access Token was expired
+      if (err.response.status === 403 && !originalConfig._retry) {
+        originalConfig._retry = true;
+
+        try {
+          const refreshToken = getLocalStorageObject(PROFILE_STORAGE_KEY).refreshToken
+          console.log(refreshToken);
+          const rs = await axiosClient.get("/token/refresh", {
+            headers: {
+              Authorization: `Bearer ${refreshToken}`
+            }
+          });
+
+          const newUser = rs.data.data;
+          addItemToLocalStorage(PROFILE_STORAGE_KEY, newUser)
+
+          return axiosClient(originalConfig);
+        } catch (_error) {
+          return Promise.reject(_error);
+        }
+      }
+    }
+
+    return Promise.reject(err);
+  }
+);
+
 
 axiosClient.interceptors.response.use((response) => {
   if (response && response.data) {
