@@ -146,8 +146,8 @@ class Sidebar extends Component {
                 <ul className='nav flex-column sub-menu'>
                   <li className='nav-item'>
                     <Link
-                    className={this.isPathActive(privateRoute.verifyPost.path) ? 'nav-link active' : 'nav-link'}
-                    to={privateRoute.verifyPost.path}>
+                      className={this.isPathActive(privateRoute.verifyPost.path) ? 'nav-link active' : 'nav-link'}
+                      to={privateRoute.verifyPost.path}>
                       <span>Verify posts</span>
                     </Link>
                   </li>
@@ -167,15 +167,28 @@ class Sidebar extends Component {
               <span className='menu-icon'>
                 <i className='mdi mdi-playlist-play' />
               </span>
-              <span className='menu-title'><span>Form Elements</span></span>
+              <span className='menu-title'><span>Users managements</span></span>
               <i className='menu-arrow' />
             </div>
             <Collapse in={this.state.formElementsMenuOpen}>
               <div>
                 <ul className='nav flex-column sub-menu'>
-                  <li className='nav-item'><Link
-                    className={this.isPathActive('/form-elements/basic-elements') ? 'nav-link active' : 'nav-link'}
-                    to='/form-elements/basic-elements'><span>Basic Elements</span></Link></li>
+                  <li className='nav-item'>
+                    <Link
+                      className={this.isPathActive(privateRoute.listUsers.path) ? 'nav-link active' : 'nav-link'}
+                      to={privateRoute.listUsers.path}>
+                      <span>All users</span>
+                    </Link>
+                  </li>
+
+                  <li className='nav-item'>
+                    <Link
+                      className={this.isPathActive(privateRoute.registerUser.path) ? 'nav-link active' : 'nav-link'}
+                      to={privateRoute.registerUser.path}>
+                      <span>Register new user</span>
+                    </Link>
+                  </li>
+
                 </ul>
               </div>
             </Collapse>

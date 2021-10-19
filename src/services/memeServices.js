@@ -34,6 +34,28 @@ const memeServices = {
     const url = `/posts/${id}`;
     return await axiosClient.get(url);
   },
+
+  searchUsers: async (params = {}) => {
+    const url = `/users`;
+    return await axiosClient.get(url, { params });
+  },
+  registerUser: async (body) => {
+    const url = '/register';
+    return await axiosClient.post(url, body);
+  },
+
+  userDetail: async (id) => {
+    const url = `/users/${id}`;
+    return await axiosClient.get(url);
+  },
+  deactiveUser: async (id) => {
+    const url = `/users/${id}`;
+    return await axiosClient.delete(url);
+  },
+  updateProfile: async (id, body) => {
+    const url = `/users/${id}`;
+    return await axiosClient.put(url, body);
+  },
 };
 
 export default memeServices;

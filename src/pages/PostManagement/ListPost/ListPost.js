@@ -13,7 +13,7 @@ const ContentWrapper = styled.div`
   padding: 15px;
 `;
 
-const StyledSelect = styled(Select)`
+export const StyledSelect = styled(Select)`
   > div.ant-select-selector {
     border: 1px solid #111;
     border-radius: 7px !important;
@@ -27,14 +27,14 @@ const StyledSelect = styled(Select)`
   margin: 0 10px;
 `;
 
-const FilterWrapper = styled.div`
+export const FilterWrapper = styled.div`
   margin-bottom: 30px;
   display: flex;
   justify-content: space-between;
 `;
 const ListPost = () => {
   const [dataSearch, setDataSearch] = useState({ page: 1, limit: 10, status: 1 });
-  const { data = {}, isLoading } = useQuery(['memeServices.searchMemes', dataSearch],
+  const { data = {}, isLoading, error } = useQuery(['memeServices.searchMemes', dataSearch],
     ({ queryKey }) => memeServices.searchMemes(queryKey[1]),
     {
       keepPreviousData: true,
@@ -88,7 +88,7 @@ const ListPost = () => {
         {
           isLoading ? (
             <Skeleton />
-          ) : (
+          ) : error ? (<p>Some error has occurred : {error.message}</p>) : (
             <CustomTable
               data={listData}
               columns={postColumns}
@@ -98,7 +98,7 @@ const ListPost = () => {
           )
         }
       </ContentWrapper>
-      {!isLoading && (
+      {(!isLoading && !error) && (
         <AppPagination defaultCurrent={1} total={data.data.totalElements} onPageChangeHandler={onPageChangeHandle}
                        limit={dataSearch.limit} />
       )}

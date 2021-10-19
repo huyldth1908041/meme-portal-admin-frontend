@@ -90,7 +90,7 @@ const EditPost = () => {
   const { id } = useParams();
   const { data = {} } = useQuery(['memeServices.getCategories'], () => memeServices.getCategories());
   const { data: categories = {} } = data;
-  const { data: postData = {}, isLoading } = useQuery(['memeServices.postDetail', id],
+  const { data: postData = {}, isLoading, error } = useQuery(['memeServices.postDetail', id],
     ({ queryKey }) => memeServices.postDetail(queryKey[1]));
   const { data: item = {} } = postData;
   useEffect(() => {
@@ -145,7 +145,7 @@ const EditPost = () => {
     <PageContainer>
       <PageTitle>Edit Post</PageTitle>
       {
-        isLoading ? (<Skeleton />) : (
+        isLoading ? (<Skeleton />) : error ? (<p>Some error has occurred</p>) : (
           <Form
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}

@@ -24,7 +24,7 @@ const StyledButton = styled(Button)`
 const VerifyPost = () => {
   const [dataSearch, setDataSearch] = useState({ status: 0, page: 1, limit: 10 });
   const [selectedIds, setSelectedIds] = useState([]);
-  const { data = {}, isLoading, refetch } = useQuery(['memeServices.searchMemes', dataSearch],
+  const { data = {}, isLoading, refetch, error } = useQuery(['memeServices.searchMemes', dataSearch],
     ({ queryKey }) => memeServices.searchMemes(queryKey[1]),
     {
       keepPreviousData: true,
@@ -92,7 +92,7 @@ const VerifyPost = () => {
         {
           isLoading ? (
             <Skeleton />
-          ) : (
+          ) : error ? (<p>Some errors have occurred</p>) : (
             <CustomTable
               data={listData}
               columns={postColumns}
@@ -108,7 +108,7 @@ const VerifyPost = () => {
         <StyledButton type='primary' size='large' onClick={handleVerifyPost}>Verify Posts</StyledButton>
         <StyledButton type='primary' danger={true} size='large' onClick={handleDeletePosts}>Delete Posts</StyledButton>
       </ButtonGroup>
-      {!isLoading && (
+      {(!isLoading && !error) && (
         <AppPagination defaultCurrent={1} total={data.data.totalElements} onPageChangeHandler={onPageChangeHandle}
                        limit={dataSearch.limit} />
       )}

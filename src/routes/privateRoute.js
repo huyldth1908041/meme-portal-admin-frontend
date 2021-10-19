@@ -1,5 +1,6 @@
 import { Dashboard } from '../pages/Dashboard';
 import { CreatePost, EditPost, ListPost, PostDetail, VerifyPost } from '../pages/PostManagement';
+import { EditProfilePage, ListUsersPage, RegisterUserPage, UserDetailPage } from '../pages/UserManagement';
 
 const privateRoute = {
   home: {
@@ -38,6 +39,28 @@ const privateRoute = {
     path: '/post/edit/:id',
     url: (id) => `/post/edit/${id}`,
     component: EditPost,
+    requiredLogin: true,
+  },
+  registerUser: {
+    path: '/user/create',
+    component: RegisterUserPage,
+    requiredLogin: true,
+  },
+  listUsers: {
+    path: '/user/all',
+    component: ListUsersPage,
+    requiredLogin: true,
+  },
+  editUser: {
+    path: '/user/edit/:id',
+    url: (id) => `/user/edit/${id}`,
+    component: EditProfilePage,
+    requiredLogin: true,
+  },
+  userDetail: {
+    path: '/user/:id',
+    url: (id) => `/user/${id}`,
+    component: UserDetailPage,
     requiredLogin: true,
   },
 };
