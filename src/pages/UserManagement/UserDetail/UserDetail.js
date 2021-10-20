@@ -1,7 +1,7 @@
 import { PageContainer } from '../../../containers';
-import { PageTitle } from '../../../components';
+import { CustomTable, PageTitle } from '../../../components';
 import styled from 'styled-components';
-import { Col, Row, Image, Button, Skeleton } from 'antd';
+import { Col, Row, Image, Button, Skeleton, Tabs, Select } from 'antd';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import memeServices from '../../../services/memeServices';
@@ -10,6 +10,8 @@ import useAuthentication from '../../../hooks/useAuthentication';
 import { privateRoute } from '../../../routes';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { StyledSelect } from '../../PostManagement/ListPost/ListPost';
+import { postColumns } from '../../PostManagement/ListPost/config';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -44,6 +46,11 @@ const UserInformation = styled.div`
     margin-right: 10px;
   }
 `;
+const StyledTabs = styled(Tabs)`
+  color: #fff;
+  margin-top: 40px;
+  padding: 20px;
+`;
 const UserDetail = () => {
   const { id } = useParams();
   const history = useHistory();
@@ -52,6 +59,15 @@ const UserDetail = () => {
     ({ queryKey }) => memeServices.userDetail(queryKey[1]));
   const { data: apiUser = {} } = data;
   const [loading, setLoading] = useState(false);
+  const [dataSearch, setDataSearch] = useState({ page: 1, limit: 10, status: 1, creatorId: id });
+  const { data: postData = {}, isLoading: isLoadingPostData, error: postDataError }
+    = useQuery(['memeServices.searchMemes', dataSearch],
+    ({ queryKey }) => memeServices.searchMemes(queryKey[1]),
+    {
+      keepPreviousData: true,
+    });
+  const listData = postData?.data?.content.map(item => ({ ...item, key: item.id }));
+
   const handleDeActive = async () => {
     const deactivePromise = new Promise(async (resolve, reject) => {
       try {
@@ -154,7 +170,44 @@ const UserDetail = () => {
               </Row>
             )
         }
-
+        <Row>
+          <Col span={24}>
+            <StyledTabs defaultActiveKey='1'>
+              <Tabs.TabPane tab='Post Created' key='1'>
+                <div>
+                  <FlexBox>
+                    <StyledSelect
+                      defaultValue={1}
+                      onChange={(value) => setDataSearch({ ...dataSearch, status: value })}
+                    >
+                      <Select.Option value={1}>Active</Select.Option>
+                      <Select.Option value={2}>Pending</Select.Option>
+                      <Select.Option value={-1}>Deleted</Select.Option>
+                    </StyledSelect>
+                  </FlexBox>
+                  {
+                    isLoadingPostData ? (
+                      <Skeleton />
+                    ) : postDataError ? (<p>Some error has occurred : {error.message}</p>) : (
+                      <CustomTable
+                        data={listData}
+                        columns={postColumns}
+                        // width='100%'
+                        // renderTitle={<h1>Need verify posts</h1>}
+                      />
+                    )
+                  }
+                </div>
+              </Tabs.TabPane>
+              <Tabs.TabPane tab='Token History' key='2'>
+                Content of Tab Pane 2
+              </Tabs.TabPane>
+              <Tabs.TabPane tab='Current activities' key='3'>
+                Content of Tab Pane 3
+              </Tabs.TabPane>
+            </StyledTabs>
+          </Col>
+        </Row>
       </Wrapper>
     </PageContainer>
   );
