@@ -2,20 +2,11 @@ import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import useAuthentication from '../hooks/useAuthentication';
-import Fire from '../services/fire';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { NotificationItem } from '../components';
+import { NotificationBar } from '../components';
 
 
 const Navbar = () => {
   const { user, logout } = useAuthentication();
-  const notificationRef = Fire.create.fireStore.collection(user.username);
-  const query = notificationRef.orderBy('createdAt', 'desc').limit(5);
-  const [notifications = []] = useCollectionData(query, { idField: 'id' });
-  const activeNotifications = notifications.filter(notification => notification.status > 0);
-  const handleNotificationClicked = async (e, item) => {
-    await notificationRef.doc(item.id).update({ ...item, status: -1 });
-  };
   const toggleOffcanvas = () => {
     document.querySelector('.sidebar-offcanvas').classList.toggle('active');
   };
@@ -40,21 +31,7 @@ const Navbar = () => {
           </li>
         </ul>
         <ul className='navbar-nav navbar-nav-right'>
-          <Dropdown alignRight as='li' className='nav-item border-left'>
-            <Dropdown.Toggle as='a' className='nav-link count-indicator cursor-pointer'>
-              <i className='mdi mdi-bell' />
-              {activeNotifications.length > 0 && (<span className='count bg-danger'></span>)}
-            </Dropdown.Toggle>
-            <Dropdown.Menu className='dropdown-menu navbar-dropdown preview-list'>
-              <h6 className='p-3 mb-0'><span style={{ color: '#fff' }}>Notifications</span></h6>
-              <Dropdown.Divider />
-              {
-                notifications.map(item => (
-                  <NotificationItem key={item.id} item={item} onNotificationClick={handleNotificationClicked} />
-                ))
-              }
-            </Dropdown.Menu>
-          </Dropdown>
+          {user && <NotificationBar />}
           <Dropdown alignRight as='li' className='nav-item'>
             <Dropdown.Toggle as='a' className='nav-link cursor-pointer no-caret'>
               <div className='navbar-profile'>
