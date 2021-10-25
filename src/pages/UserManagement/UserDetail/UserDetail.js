@@ -74,6 +74,7 @@ const UserDetail = () => {
         setLoading(true);
         await memeServices.deactiveUser(id);
         history.push(privateRoute.listUsers.path);
+        resolve()
       } catch (err) {
         console.log(err);
         reject(err);

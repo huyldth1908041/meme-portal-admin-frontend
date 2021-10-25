@@ -1,7 +1,7 @@
 import { PageContainer } from '../../../containers';
-import { AppPagination, CustomTable, PageTitle, SearchBar } from '../../../components';
+import { AppPagination, CustomTable, PageTitle, SearchAndSelect, SearchBar } from '../../../components';
 import { Select, Skeleton } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import memeServices from '../../../services/memeServices';
 import styled from 'styled-components';
@@ -33,7 +33,13 @@ export const FilterWrapper = styled.div`
   justify-content: space-between;
 `;
 const ListPost = () => {
+  const [creatorId, setCreatorId] = useState();
   const [dataSearch, setDataSearch] = useState({ page: 1, limit: 10, status: 1 });
+  useEffect(() => {
+    if (creatorId) {
+      setDataSearch(prevState => ({ ...prevState, creatorId: creatorId.value }));
+    }
+  }, [creatorId]);
   const { data = {}, isLoading, error } = useQuery(['memeServices.searchMemes', dataSearch],
     ({ queryKey }) => memeServices.searchMemes(queryKey[1]),
     {
@@ -45,6 +51,17 @@ const ListPost = () => {
   const listData = data?.data?.content.map(item => ({ ...item, key: item.id }));
   const onPageChangeHandle = (page, pageSize) => {
     setDataSearch({ ...dataSearch, page: page });
+  };
+  const fetchUserList = async (username) => {
+    try {
+      const res = await memeServices.searchUsers({ page: 1, limit: 10, fullName: username, status: 1 });
+      return res.data.content.map((user) => ({
+        label: `${user.fullName}`,
+        value: user.id,
+      }));
+    } catch (err) {
+      console.error(err.message);
+    }
   };
   return (
     <PageContainer>
@@ -78,6 +95,14 @@ const ListPost = () => {
               <Select.Option value='createdAt-desc'>Recently Created</Select.Option>
               <Select.Option value='createdAt-asc'>Longtime Created</Select.Option>
             </StyledSelect>
+            <SearchAndSelect
+              value={creatorId}
+              placeholder='Select creator'
+              fetchOptions={fetchUserList}
+              onChange={(newValue) => {
+                setCreatorId(newValue);
+              }}
+            />
           </div>
           <div style={{ width: 220 }}>
             <SearchBar placeholderText='Search post...' onSearch={q => {
