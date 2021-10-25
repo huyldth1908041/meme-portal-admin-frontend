@@ -9,6 +9,8 @@ import memeServices from '../../../services/memeServices';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { privateRoute } from '../../../routes';
+import LikeHistoryTab from './LikeHistoryTab';
+import CommentHistoryTab from './CommentHistoryTab';
 
 const ContentWrapper = styled.div`
   width: 100%;
@@ -60,7 +62,9 @@ const StyledTabs = styled(Tabs)`
   color: #fff;
   margin-top: 40px;
   padding: 20px;
+  width: 100%;
 `;
+
 
 const PostDetail = () => {
   const [loading, setLoading] = useState(false);
@@ -68,7 +72,6 @@ const PostDetail = () => {
   const { data = {}, isLoading, refetch, error } = useQuery(['memeServices.postDetail', id],
     ({ queryKey }) => memeServices.postDetail(queryKey[1]));
   const { data: item = {} } = data;
-
 
   const handleVerify = async () => {
     const verifyPromise = new Promise(async (resolve, reject) => {
@@ -110,9 +113,6 @@ const PostDetail = () => {
     });
   };
 
-  function callback(key) {
-    console.log(key);
-  }
 
   return (
     <PageContainer>
@@ -139,7 +139,7 @@ const PostDetail = () => {
                       {item.likeCounts} <StatusIcon className='bx bxs-like' />
                     </div>
                     <div>
-                      0 <StatusIcon className='bx bxs-comment' />
+                      {item.commentCounts || 0} <StatusIcon className='bx bxs-comment' />
                     </div>
                     <div>
                       0 <StatusIcon className='bx bxs-upvote' />
@@ -188,15 +188,15 @@ const PostDetail = () => {
               </Col>
             </Row>
             <Row>
-              <StyledTabs defaultActiveKey='1' onChange={callback}>
+              <StyledTabs defaultActiveKey='1'>
                 <Tabs.TabPane tab='Likes History' key='1'>
-                  Content of Tab Pane 1
-                </Tabs.TabPane>
-                <Tabs.TabPane tab='Vote History' key='2'>
-                  Content of Tab Pane 2
+                  <LikeHistoryTab postId={id} />
                 </Tabs.TabPane>
                 <Tabs.TabPane tab='Comment History' key='3'>
-                  Content of Tab Pane 3
+                  <CommentHistoryTab postId={id} />
+                </Tabs.TabPane>
+                <Tabs.TabPane tab='Push History' key='2'>
+                  Content of Tab Pane 2
                 </Tabs.TabPane>
               </StyledTabs>
             </Row>
