@@ -12,14 +12,6 @@ const axiosClient = axios.create({
   paramsSerializer: params => queryString.stringify(params),
 });
 
-axiosClient.interceptors.request.use((config) => {
-  const user = getLocalStorageObject(PROFILE_STORAGE_KEY);
-  if (user) {
-    const token = user.accessToken;
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
 
 axiosClient.interceptors.response.use(
   (res) => {
@@ -28,23 +20,24 @@ axiosClient.interceptors.response.use(
   async (err) => {
     const originalConfig = err.config;
 
-    if (originalConfig.url !== "/login" && err.response) {
+    if (originalConfig.url !== '/login' && err.response) {
       // Access Token was expired
       if (err.response.status === 403 && !originalConfig._retry) {
         originalConfig._retry = true;
 
         try {
-          const refreshToken = getLocalStorageObject(PROFILE_STORAGE_KEY).refreshToken
-          console.log(refreshToken);
-          const rs = await axiosClient.get("/token/refresh", {
+          const refreshToken = getLocalStorageObject(PROFILE_STORAGE_KEY).refreshToken;
+          console.log("refresh token");
+          const rs = await axios.get(`${API_URL}/token/refresh`, {
             headers: {
-              Authorization: `Bearer ${refreshToken}`
-            }
+              Authorization: `Bearer ${refreshToken}`,
+              'content-type': 'application/json',
+            },
           });
-
-          const newUser = rs.data.data;
-          addItemToLocalStorage(PROFILE_STORAGE_KEY, newUser)
-
+          const newUser = rs.data;
+          const { data: { accessToken, refreshToken: refresh, user } } = newUser;
+          addItemToLocalStorage(PROFILE_STORAGE_KEY, { ...user, accessToken, refreshToken: refresh });
+          window.location.reload();
           return axiosClient(originalConfig);
         } catch (_error) {
           return Promise.reject(_error);
@@ -53,9 +46,16 @@ axiosClient.interceptors.response.use(
     }
 
     return Promise.reject(err);
-  }
+  },
 );
-
+axiosClient.interceptors.request.use((config) => {
+  const user = getLocalStorageObject(PROFILE_STORAGE_KEY);
+  if (user) {
+    const token = user.accessToken;
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
 axiosClient.interceptors.response.use((response) => {
   if (response && response.data) {
