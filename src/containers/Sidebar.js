@@ -4,6 +4,7 @@ import { Collapse, Dropdown } from 'react-bootstrap';
 import { privateRoute } from '../routes';
 import { getLocalStorageObject } from '../utils';
 import { PROFILE_STORAGE_KEY } from '../constants';
+import { Image } from 'antd';
 
 
 class Sidebar extends Component {
@@ -58,9 +59,10 @@ class Sidebar extends Component {
     return (
       <nav className='sidebar sidebar-offcanvas' id='sidebar'>
         <div className='sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top'>
-          <a className='sidebar-brand brand-logo' href='index.html'>
-            <img src='/assets/images/logo.svg' alt='logo' />
-          </a>
+          <Link style={{ display: 'flex', alignItems: 'center', color: '#fff' }} to='/'>
+            <Image src='/assets/images/nobg-logo.png' alt='logo' width={50} height={50} preview={false} />
+            HÀI CODE
+          </Link>
           <a className='sidebar-brand brand-logo-mini' href='index.html'>
             <img src='/assets/images/logo-mini.svg' alt='logo' />
           </a>
