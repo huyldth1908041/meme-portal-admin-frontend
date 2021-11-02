@@ -168,7 +168,6 @@ const CreatePost = () => {
           <StyledCol xs={12}>
             <Form.Item
               name='description'
-              rules={[{ required: true, message: 'Description is required' }]}
             >
               <StyledTextArea placeholder='Description' rows={6} />
             </Form.Item>
