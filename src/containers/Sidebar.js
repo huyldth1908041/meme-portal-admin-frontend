@@ -134,7 +134,7 @@ class Sidebar extends Component {
               <span className='menu-title'><span>Dashboard</span></span>
             </Link>
           </li>
-          <li className={this.isPathActive('/basic-ui') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
+          <li className={this.isPathActive('/post') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
             <div className={this.state.basicUiMenuOpen ? 'nav-link menu-expanded' : 'nav-link'}
                  onClick={() => this.toggleMenuState('basicUiMenuOpen')} data-toggle='collapse'>
               <span className='menu-icon'>
@@ -163,7 +163,7 @@ class Sidebar extends Component {
               </div>
             </Collapse>
           </li>
-          <li className={this.isPathActive('/form-elements') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
+          <li className={this.isPathActive('/user') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
             <div className={this.state.formElementsMenuOpen ? 'nav-link menu-expanded' : 'nav-link'}
                  onClick={() => this.toggleMenuState('formElementsMenuOpen')} data-toggle='collapse'>
               <span className='menu-icon'>
@@ -195,21 +195,34 @@ class Sidebar extends Component {
               </div>
             </Collapse>
           </li>
-          <li className={this.isPathActive('/tables') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
+          <li className={this.isPathActive('/report') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
             <div className={this.state.tablesMenuOpen ? 'nav-link menu-expanded' : 'nav-link'}
                  onClick={() => this.toggleMenuState('tablesMenuOpen')} data-toggle='collapse'>
               <span className='menu-icon'>
                 <i className='mdi mdi-table-large' />
               </span>
-              <span className='menu-title'><span>Tables</span></span>
+              <span className='menu-title'><span>Reports Management</span></span>
               <i className='menu-arrow' />
             </div>
             <Collapse in={this.state.tablesMenuOpen}>
               <div>
                 <ul className='nav flex-column sub-menu'>
-                  <li className='nav-item'><Link
-                    className={this.isPathActive('/tables/basic-table') ? 'nav-link active' : 'nav-link'}
-                    to='/tables/basic-table'><span>Basic Table</span></Link></li>
+                  <li className='nav-item'><
+                    Link
+                    className={this.isPathActive(privateRoute.pendingReports.path) ? 'nav-link active' : 'nav-link'}
+                    to={privateRoute.pendingReports.path}
+                  >
+                    <span>Pending Reports</span>
+                  </Link>
+                  </li>
+                  <li className='nav-item'><
+                    Link
+                    className={this.isPathActive(privateRoute.allReports.path) ? 'nav-link active' : 'nav-link'}
+                    to={privateRoute.allReports.path}
+                  >
+                    <span>All Reports</span>
+                  </Link>
+                  </li>
                 </ul>
               </div>
             </Collapse>

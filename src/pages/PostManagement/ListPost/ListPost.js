@@ -6,6 +6,8 @@ import { useQuery } from 'react-query';
 import memeServices from '../../../services/memeServices';
 import styled from 'styled-components';
 import { postColumns } from './config';
+import { useHistory } from 'react-router-dom';
+import { privateRoute } from '../../../routes';
 
 
 const ContentWrapper = styled.div`
@@ -33,6 +35,7 @@ export const FilterWrapper = styled.div`
   justify-content: space-between;
 `;
 const ListPost = () => {
+  const history = useHistory();
   const [creatorId, setCreatorId] = useState();
   const [dataSearch, setDataSearch] = useState({ page: 1, limit: 10, status: 1 });
   useEffect(() => {
@@ -117,8 +120,9 @@ const ListPost = () => {
             <CustomTable
               data={listData}
               columns={postColumns}
-              // width='100%'
-              // renderTitle={<h1>Need verify posts</h1>}
+              onRowClick={(record) => {
+                history.push(privateRoute.postDetail.url(record.id));
+              }}
             />
           )
         }

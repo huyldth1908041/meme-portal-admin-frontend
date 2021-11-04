@@ -1,6 +1,7 @@
 import { Dashboard } from '../pages/Dashboard';
 import { CreatePost, EditPost, ListPost, PostDetail, VerifyPost } from '../pages/PostManagement';
 import { EditProfilePage, ListUsersPage, RegisterUserPage, UserDetailPage } from '../pages/UserManagement';
+import { AllReports, PendingReports } from '../pages/ReportMangement';
 
 const privateRoute = {
   home: {
@@ -61,6 +62,16 @@ const privateRoute = {
     path: '/user/:id',
     url: (id) => `/user/${id}`,
     component: UserDetailPage,
+    requiredLogin: true,
+  },
+  pendingReports: {
+    path: '/reports/pending',
+    component: PendingReports,
+    requiredLogin: true,
+  },
+  allReports: {
+    path: '/reports/all',
+    component: AllReports,
     requiredLogin: true,
   },
 };

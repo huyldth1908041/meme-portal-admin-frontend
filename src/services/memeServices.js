@@ -64,6 +64,18 @@ const memeServices = {
     const url = `/posts/${id}/comments`;
     return await axiosClient.get(url, { params });
   },
+  listReports: async (params = {}) => {
+    const url = `/reports`;
+    return await axiosClient.get(url, { params });
+  },
+  resolveReports: async (body) => {
+    const url = '/reports/resolve';
+    return await axiosClient.post(url, body);
+  },
+  deleteReport: async (id) => {
+    const url = `/reports/${id}`;
+    return await axiosClient.delete(url);
+  },
 };
 
 export default memeServices;

@@ -54,10 +54,10 @@ export const userColumns = [
         {
           record.status > 0 && (
             <>
-              <Link to={privateRoute.userDetail.url(record.id)}>
+              <Link to={privateRoute.userDetail.url(record.id)} onClick={(event) => event.stopPropagation()}>
                 <i className='bx bxs-info-circle' />
               </Link>
-              <Link to={privateRoute.editUser.url(record.id)}>
+              <Link to={privateRoute.editUser.url(record.id)} onClick={(event) => event.stopPropagation()}>
                 <i className='bx bxs-pencil' />
               </Link>
             </>

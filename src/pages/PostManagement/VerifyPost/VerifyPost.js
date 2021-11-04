@@ -7,6 +7,8 @@ import { Button, Skeleton } from 'antd';
 import { toast } from 'react-hot-toast';
 import { PageContainer } from '../../../containers';
 import { postColumns } from '../ListPost/config';
+import { useHistory } from 'react-router-dom';
+import { privateRoute } from '../../../routes';
 
 
 const TableCard = styled.div`
@@ -22,6 +24,7 @@ const StyledButton = styled(Button)`
   margin: 0 10px;
 `;
 const VerifyPost = () => {
+  const history = useHistory();
   const [dataSearch, setDataSearch] = useState({ status: 0, page: 1, limit: 10 });
   const [selectedIds, setSelectedIds] = useState([]);
   const { data = {}, isLoading, refetch, error } = useQuery(['memeServices.searchMemes', dataSearch],
@@ -99,7 +102,9 @@ const VerifyPost = () => {
               // width='100%'
               selectionType='checkbox'
               onRowSelectionChange={handleRowSelectionChange}
-              // renderTitle={<h1>Need verify posts</h1>}
+              onRowClick={(record) => {
+                history.push(privateRoute.postDetail.url(record.id));
+              }}
             />
           )
         }

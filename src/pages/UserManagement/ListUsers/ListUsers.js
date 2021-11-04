@@ -7,12 +7,15 @@ import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import memeServices from '../../../services/memeServices';
 import { userColumns } from './config';
+import { privateRoute } from '../../../routes';
+import { useHistory } from 'react-router-dom';
 
 const Wrapper = styled.div`
   width: 100%;
   padding: 15px;
 `;
 const ListUsers = () => {
+  const history = useHistory();
   const [dataSearch, setDataSearch] = useState({ page: 1, limit: 10, status: 1 });
   const { data = {}, isLoading, error } = useQuery(['memeServices.searchUsers', dataSearch],
     ({ queryKey }) => memeServices.searchUsers(queryKey[1]),
@@ -77,8 +80,9 @@ const ListUsers = () => {
             <CustomTable
               data={listData}
               columns={userColumns}
-              // width='100%'
-              // renderTitle={<h1>Need verify posts</h1>}
+              onRowClick={(record) => {
+                history.push(privateRoute.userDetail.url(record.id));
+              }}
             />
           )
         }
