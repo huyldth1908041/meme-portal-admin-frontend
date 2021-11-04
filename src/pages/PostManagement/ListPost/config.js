@@ -51,10 +51,10 @@ export const postColumns = [
     key: 'action',
     render: (_, record) => (
       <Space size='middle'>
-        <Link to={privateRoute.postDetail.url(record.id)}>
+        <Link to={privateRoute.postDetail.url(record.id)} onClick={(event) => event.stopPropagation()}>
           <i className='bx bxs-info-circle' />
         </Link>
-        <Link to={privateRoute.editPost.url(record.id)}>
+        <Link to={privateRoute.editPost.url(record.id)} onClick={(event) => event.stopPropagation()}>
           <i className='bx bxs-pencil' />
         </Link>
       </Space>

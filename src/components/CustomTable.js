@@ -7,22 +7,27 @@ const TableStyled = styled(Table)`
 
   tr {
     font-size: 16px;
-    
+    cursor: pointer;
   }
+
   thead th {
     font-weight: 600;
   }
+
   .ant-table-tbody > tr.ant-table-row:hover > td {
     background: #7c3118;
   }
+
   .ant-table-thead tr th {
     background: #191C24;
     color: #fff;
     border-bottom: none;
   }
+
   .ant-table-tbody > tr > td {
     border-bottom: none;
   }
+
   .ant-table-tbody > tr.ant-table-row-selected > td {
     background: #7c3118;
     color: #fff;
@@ -39,6 +44,7 @@ const CustomTable =
      pagination,
      renderFooter,
      renderTitle,
+     onRowClick,
    }) => {
     const rowSelection = {
       onChange: onRowSelectionChange,
@@ -61,6 +67,13 @@ const CustomTable =
         footer={renderFooter && renderFooter}
         title={renderTitle && renderTitle}
         rowClassName={() => 'custom-table-row'}
+        onRow={(record, rowIndex) => {
+          return {
+            onClick: event => {
+              onRowClick(record)
+            }, // click row
+          };
+        }}
       />
     );
 
