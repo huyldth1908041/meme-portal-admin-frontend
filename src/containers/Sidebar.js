@@ -250,47 +250,6 @@ class Sidebar extends Component {
               </div>
             </Collapse>
           </li>
-          <li className={this.isPathActive('/icons') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
-            <div className={this.state.iconsMenuOpen ? 'nav-link menu-expanded' : 'nav-link'}
-                 onClick={() => this.toggleMenuState('iconsMenuOpen')} data-toggle='collapse'>
-              <span className='menu-icon'>
-                <i className='mdi mdi-contacts' />
-              </span>
-              <span className='menu-title'><span>Icons</span></span>
-              <i className='menu-arrow' />
-            </div>
-            <Collapse in={this.state.iconsMenuOpen}>
-              <div>
-                <ul className='nav flex-column sub-menu'>
-                  <li className='nav-item'><Link
-                    className={this.isPathActive('/icons/mdi') ? 'nav-link active' : 'nav-link'}
-                    to='/icons/mdi'><span>Material</span></Link></li>
-                </ul>
-              </div>
-            </Collapse>
-          </li>
-          <li className={this.isPathActive('/user-pages') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
-            <div className={this.state.userPagesMenuOpen ? 'nav-link menu-expanded' : 'nav-link'}
-                 onClick={() => this.toggleMenuState('userPagesMenuOpen')} data-toggle='collapse'>
-              <span className='menu-icon'>
-                <i className='mdi mdi-security' />
-              </span>
-              <span className='menu-title'><span>User Pages</span></span>
-              <i className='menu-arrow' />
-            </div>
-            <Collapse in={this.state.userPagesMenuOpen}>
-              <div>
-                <ul className='nav flex-column sub-menu'>
-                  <li className='nav-itemk'><Link
-                    className={this.isPathActive('/user-pages/login-1') ? 'nav-link active' : 'nav-link'}
-                    to='/user-pages/login-1'><span>Login</span></Link></li>
-                  <li className='nav-item'><Link
-                    className={this.isPathActive('/user-pages/register-1') ? 'nav-link active' : 'nav-link'}
-                    to='/user-pages/register-1'><span>Register</span></Link></li>
-                </ul>
-              </div>
-            </Collapse>
-          </li>
         </ul>
       </nav>
     );

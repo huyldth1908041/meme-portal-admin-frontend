@@ -96,6 +96,26 @@ const memeServices = {
     const url = `/advertisements/${id}`;
     return await axiosClient.delete(url);
   },
+  getDashboardStatistic: async () => {
+    const url = `/dashboard`;
+    return await axiosClient.get(url);
+  },
+  getPostStatistics: async (params = {}) => {
+    const url = `/dashboard/postCount`;
+    return await axiosClient.get(url, { params });
+  },
+  getUserStatistics: async (params = {}) => {
+    const url = `/dashboard/userCount`;
+    return await axiosClient.get(url, { params });
+  },
+  getTopToken: async () => {
+    const url = `/users/topToken`;
+    return axiosClient.get(url);
+  },
+  getTopCreator: async () => {
+    const url = `/posts/topCreator`;
+    return axiosClient.get(url);
+  },
 };
 
 export default memeServices;
