@@ -2,6 +2,7 @@ import { Dashboard } from '../pages/Dashboard';
 import { CreatePost, EditPost, ListPost, PostDetail, VerifyPost } from '../pages/PostManagement';
 import { EditProfilePage, ListUsersPage, RegisterUserPage, UserDetailPage } from '../pages/UserManagement';
 import { AllReports, PendingReports } from '../pages/ReportMangement';
+import { AdvertisementDetail, ListAdvertisement, VerifyAdvertisement } from '../pages/AdvertisementManagement';
 
 const privateRoute = {
   home: {
@@ -72,6 +73,22 @@ const privateRoute = {
   allReports: {
     path: '/reports/all',
     component: AllReports,
+    requiredLogin: true,
+  },
+  allAdvertisements: {
+    path: '/ads/all',
+    component: ListAdvertisement,
+    requiredLogin: true,
+  },
+  verifyAdvertisements: {
+    path: '/ads/verify',
+    component: VerifyAdvertisement,
+    requiredLogin: true,
+  },
+  advertisementDetail: {
+    path: '/ads/:id',
+    url: (id) => `/ads/${id}`,
+    component: AdvertisementDetail,
     requiredLogin: true,
   },
 };

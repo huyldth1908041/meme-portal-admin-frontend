@@ -227,21 +227,25 @@ class Sidebar extends Component {
               </div>
             </Collapse>
           </li>
-          <li className={this.isPathActive('/charts') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
+          <li className={this.isPathActive('/ads') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
             <div className={this.state.chartsMenuOpen ? 'nav-link menu-expanded' : 'nav-link'}
                  onClick={() => this.toggleMenuState('chartsMenuOpen')} data-toggle='collapse'>
               <span className='menu-icon'>
                 <i className='mdi mdi-chart-bar' />
               </span>
-              <span className='menu-title'><span>Charts</span></span>
+              <span className='menu-title'><span>Advertisements</span></span>
               <i className='menu-arrow' />
             </div>
             <Collapse in={this.state.chartsMenuOpen}>
               <div>
                 <ul className='nav flex-column sub-menu'>
                   <li className='nav-item'><Link
-                    className={this.isPathActive('/charts/chart-js') ? 'nav-link active' : 'nav-link'}
-                    to='/charts/chart-js'><span>Chart Js</span></Link></li>
+                    className={this.isPathActive(privateRoute.verifyAdvertisements.path) ? 'nav-link active' : 'nav-link'}
+                    to={privateRoute.verifyAdvertisements.path}><span>Verify Ads</span></Link></li>
+                  <li className='nav-item'><Link
+                    className={this.isPathActive(privateRoute.allAdvertisements.path) ? 'nav-link active' : 'nav-link'}
+                    to={privateRoute.allAdvertisements.path}><span>All Ads</span></Link></li>
+
                 </ul>
               </div>
             </Collapse>
