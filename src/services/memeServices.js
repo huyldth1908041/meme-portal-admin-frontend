@@ -76,6 +76,26 @@ const memeServices = {
     const url = `/reports/${id}`;
     return await axiosClient.delete(url);
   },
+  searchAdvertisements: async (params = {}) => {
+    const url = '/advertisements';
+    return await axiosClient.get(url, { params });
+  },
+  verifyAdvertisements: async (body) => {
+    const url = '/advertisements/verify';
+    return await axiosClient.post(url, body);
+  },
+  advertisementDetail: async (id) => {
+    const url = `/advertisements/${id}`;
+    return await axiosClient.get(url);
+  },
+  getShowingAdvertisement: async () => {
+    const url = `/advertisements/active`;
+    return await axiosClient.get(url);
+  },
+  deleteAdvertisement: async (id) => {
+    const url = `/advertisements/${id}`;
+    return await axiosClient.delete(url);
+  },
 };
 
 export default memeServices;
