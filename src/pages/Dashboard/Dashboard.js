@@ -214,7 +214,7 @@ const Dashboard = () => {
         <StyledCard>
           <Row gutter={24}>
             <Col span={12}>
-              <TableTitle>Top creator</TableTitle>
+              <TableTitle>Top Tokens Owners</TableTitle>
               {
                 isLoadingTopToken ? (<Skeleton />) : topTokenError ? <p>Some error has occurred</p> : (
                   <CustomTable
@@ -228,7 +228,7 @@ const Dashboard = () => {
               }
             </Col>
             <Col span={12}>
-              <TableTitle>Top token owner</TableTitle>
+              <TableTitle>Top Creators</TableTitle>
               {
                 isLoadingTopCreator ? (<Skeleton />) : topCreatorError ? (<p>Some error has occurred</p>) : (
                   <CustomTable
