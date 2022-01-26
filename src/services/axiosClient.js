@@ -22,9 +22,8 @@ axiosClient.interceptors.response.use(
 
     if (originalConfig.url !== '/login' && err.response) {
       // Access Token was expired
-      if (err.response.status === 403 && !originalConfig._retry) {
+      if (err.response.status === 403 && !originalConfig._retry && err.response.data.message.includes('The Token has expired')) {
         originalConfig._retry = true;
-
         try {
           const refreshToken = getLocalStorageObject(PROFILE_STORAGE_KEY).refreshToken;
           console.log("refresh token");
