@@ -201,7 +201,7 @@ const Dashboard = () => {
                                icon={'bx-images'} />
               </Col>
               <Col span={8}>
-                <DashBoardCard label='Total Transactions' value={totalTransactions} unit='transactions processed'
+                <DashBoardCard label='Total Transactions ' value={totalTransactions} unit='transactions processed'
                                icon='bx-transfer' />
               </Col>
               <Col span={8}>
