@@ -205,7 +205,7 @@ const Dashboard = () => {
                                icon='bx-transfer' />
               </Col>
               <Col span={8}>
-                <DashBoardCard label='Tokens Spent' value={totalTokenSpent} unit={'tokens was spent'}
+                <DashBoardCard label='Tokens Spent ' value={totalTokenSpent} unit={'tokens was spent'}
                                icon={'bx-dollar-circle'} />
               </Col>
             </Row>
