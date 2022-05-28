@@ -3,3 +3,6 @@
 - `yarn install` to install dependencies
 ## Run project in local
 `yarn start`
+
+## Build
+``yarn build`
